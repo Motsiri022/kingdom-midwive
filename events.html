@@ -6,20 +6,408 @@
   <meta name="description" content="Kingdom Midwives Events - Join our transformational gatherings, conferences, retreats, and community outreach programs.">
   <meta name="keywords" content="Christian women's events, faith conferences, prayer meetings, women's retreats, Kingdom Midwives events">
   <title>Events | Kingdom Midwives</title>
-
+ 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
+ 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+ 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/responsive.css">
+ 
+  <style>
+    /* ── Upcoming Event Feature Card ── */
+    .upcoming-feature-card {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px -10px hsl(270 90% 10% / 0.35);
+      min-height: 420px;
+    }
+ 
+    .upcoming-feature-image {
+      position: relative;
+      overflow: hidden;
+      min-height: 320px;
+    }
+ 
+    .upcoming-feature-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+ 
+    .upcoming-feature-card:hover .upcoming-feature-image img {
+      transform: scale(1.04);
+    }
+ 
+    .upcoming-feature-image-placeholder {
+      width: 100%;
+      height: 100%;
+      min-height: 320px;
+      background: var(--gradient-primary);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      gap: 16px;
+    }
+ 
+    .upcoming-feature-image-placeholder i {
+      font-size: 80px;
+      opacity: 0.6;
+    }
+ 
+    .upcoming-feature-image-placeholder span {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      opacity: 0.8;
+    }
+ 
+    .upcoming-feature-body {
+      background: white;
+      padding: 48px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border: 1px solid hsl(var(--border));
+      border-left: none;
+      border-radius: 0 16px 16px 0;
+    }
+ 
+    .upcoming-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: hsl(270 90% 10% / 0.08);
+      color: hsl(var(--primary));
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      width: fit-content;
+    }
+ 
+    .upcoming-label i { color: hsl(var(--secondary)); }
+ 
+    .upcoming-feature-body h3 {
+      font-size: 2rem;
+      color: hsl(var(--primary));
+      margin-bottom: 24px;
+      line-height: 1.2;
+    }
+ 
+    .upcoming-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+ 
+    .upcoming-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: hsl(var(--foreground));
+      font-size: 1rem;
+    }
+ 
+    .upcoming-meta-item .meta-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--gradient-primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+ 
+    .upcoming-meta-item strong {
+      display: block;
+      font-size: 0.75rem;
+      color: hsl(var(--muted-foreground));
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1px;
+    }
+ 
+    /* ── Past Event Cards ── */
+    .event-card-past {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+ 
+    .event-image-wrap {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      cursor: pointer;
+    }
+ 
+    .event-image-wrap img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+ 
+    .event-image-wrap:hover img {
+      transform: scale(1.05);
+    }
+ 
+    .event-image-overlay {
+      position: absolute;
+      inset: 0;
+      background: hsl(270 90% 10% / 0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+ 
+    .event-image-wrap:hover .event-image-overlay {
+      opacity: 1;
+    }
+ 
+    .event-image-overlay span {
+      color: white;
+      font-weight: 600;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.15);
+      padding: 10px 20px;
+      border-radius: 30px;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+ 
+    .gallery-trigger {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      color: hsl(var(--primary));
+      background: none;
+      border: 2px solid hsl(var(--primary));
+      border-radius: var(--radius);
+      padding: 10px 20px;
+      transition: var(--transition-smooth);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      width: 100%;
+    }
+ 
+    .gallery-trigger:hover {
+      background: hsl(var(--primary));
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(20, 0, 50, 0.3);
+    }
+ 
+    /* ── Lightbox ── */
+    .lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 0, 20, 0.96);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      padding: 20px;
+    }
+ 
+    .lightbox-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+ 
+    .lightbox-header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 20px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(to bottom, rgba(10,0,20,0.9), transparent);
+    }
+ 
+    .lightbox-title {
+      color: white;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+    }
+ 
+    .lightbox-counter {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.9rem;
+    }
+ 
+    .lightbox-close {
+      background: rgba(255,255,255,0.15);
+      border: none;
+      color: white;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease;
+    }
+ 
+    .lightbox-close:hover { background: rgba(255,255,255,0.3); }
+ 
+    .lightbox-stage {
+      position: relative;
+      max-width: 900px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+ 
+    .lightbox-img-wrap {
+      width: 100%;
+      max-height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+ 
+    .lightbox-img-wrap img {
+      max-width: 100%;
+      max-height: 70vh;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 20px 80px rgba(0,0,0,0.7);
+      transition: opacity 0.25s ease;
+    }
+ 
+    .lightbox-img-wrap img.fading { opacity: 0; }
+ 
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease, transform 0.2s ease;
+      z-index: 2;
+    }
+ 
+    .lightbox-nav:hover {
+      background: hsl(var(--primary));
+      transform: translateY(-50%) scale(1.1);
+    }
+ 
+    .lightbox-nav.prev { left: -64px; }
+    .lightbox-nav.next { right: -64px; }
+ 
+    .lightbox-thumbs {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      overflow-x: auto;
+      max-width: 900px;
+      padding-bottom: 6px;
+    }
+ 
+    .lightbox-thumb {
+      width: 70px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 5px;
+      cursor: pointer;
+      opacity: 0.5;
+      border: 2px solid transparent;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+ 
+    .lightbox-thumb.active,
+    .lightbox-thumb:hover {
+      opacity: 1;
+      border-color: hsl(var(--secondary));
+    }
+ 
+    .lightbox-thumb-ph {
+      width: 70px;
+      height: 50px;
+      border-radius: 5px;
+      background: hsl(270 90% 20%);
+      cursor: pointer;
+      opacity: 0.5;
+      border: 2px solid transparent;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.5);
+      font-size: 18px;
+    }
+ 
+    .lightbox-thumb-ph.active,
+    .lightbox-thumb-ph:hover {
+      opacity: 1;
+      border-color: hsl(var(--secondary));
+    }
+ 
+    @media (max-width: 768px) {
+      .upcoming-feature-card { grid-template-columns: 1fr; }
+      .upcoming-feature-body {
+        border-left: 1px solid hsl(var(--border));
+        border-top: none;
+        border-radius: 0 0 16px 16px;
+        padding: 32px 24px;
+      }
+      .upcoming-feature-image { min-height: 220px; }
+      .lightbox-nav.prev { left: -14px; }
+      .lightbox-nav.next { right: -14px; }
+      .lightbox-nav { width: 38px; height: 38px; font-size: 0.9rem; }
+    }
+  </style>
 </head>
 <body>
-
-  <!-- Navigation Bar -->
+ 
+  <!-- Navigation -->
   <nav class="navbar" role="navigation" aria-label="Main navigation">
     <div class="nav-container">
       <a href="index.html" class="nav-logo" aria-label="The Kingdom Midwives Home">
@@ -28,339 +416,274 @@
         </div>
         <span>The Kingdom Midwives</span>
       </a>
-
       <ul class="nav-menu" id="navMenu">
         <li><a href="index.html" class="nav-link">Home</a></li>
         <li><a href="about.html" class="nav-link">About</a></li>
         <li><a href="events.html" class="nav-link active">Events</a></li>
         <li><a href="contact.html" class="nav-link">Contact</a></li>
-        <li><a href="contact.html" class="btn btn-secondary">Become a Member</a></li>
+        <li><a href="contact.html" class="btn btn-secondary">Prayer Request</a></li>
       </ul>
-
       <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle mobile menu" aria-expanded="false">
-        <span></span>
-        <span></span>
-        <span></span>
+        <span></span><span></span><span></span>
       </button>
     </div>
   </nav>
-
-  <!-- Page Header -->
-  <section class="section" style="margin-top: 72px; padding-top: 100px; background: hsl(var(--muted));">
+ 
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <div class="page-hero-bg" aria-hidden="true"></div>
+    <div class="page-hero-overlay" aria-hidden="true"></div>
     <div class="container">
-      <div class="section-header">
+      <div class="section-header" style="margin-bottom: 0;">
         <h1 class="section-title">Our Events</h1>
-        <p class="section-subtitle">
-          Join us for transformational gatherings and life-changing experiences
-        </p>
+        <p class="section-subtitle">Join us for transformational gatherings and life-changing experiences</p>
       </div>
     </div>
   </section>
-
-  <!-- Upcoming Events -->
-  <section class="section animate-on-scroll">
+ 
+  <!-- ══ UPCOMING EVENTS ══ -->
+  <section class="section animate-on-scroll" id="upcoming">
     <div class="container">
       <div class="section-header">
         <h2 class="section-title">Upcoming Events</h2>
+        <div class="accent-line"></div>
         <p class="section-subtitle">Mark your calendar and join us for these powerful gatherings</p>
       </div>
-
-      <div class="grid grid-2">
-        <!-- Event 1: Annual Prayer Summit 2024 -->
-        <div class="card event-card animate-on-scroll">
+ 
+      <div class="upcoming-feature-card">
+        <!-- Image side -->
+        <div class="upcoming-feature-image">
           <img
-            src="images/events/prayer-summit.jpg"
-            alt="Annual Prayer Summit 2024 - Women praying together in circle"
-            class="event-image"
-            onerror="this.src='https://via.placeholder.com/400x250/6B46C1/FFFFFF?text=Prayer+Summit'">
-
-          <span class="event-date">
-            <i class="far fa-calendar-alt"></i> March 15, 2024
-          </span>
-
-          <h3 class="card-title">Annual Prayer Summit 2024</h3>
-
-          <p class="event-location">
-            <i class="fas fa-map-marker-alt"></i> Grace Community Center, Johannesburg
-          </p>
-
-          <p class="event-description">
-            Join us for a powerful day of intercession and spiritual renewal. This summit brings together
-            women from all walks of life to pray for our families, communities, and nation. Experience
-            the transformative power of corporate prayer.
-          </p>
-
-          <a href="contact.html" class="btn btn-primary">Register Now</a>
+            src="images/events/hero2-cta.jpeg"
+            alt="The Kingdom Midwives Annual Summit 2026"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="upcoming-feature-image-placeholder" style="display:none;">
+            <i class="fas fa-crown"></i>
+            <span>Annual Summit 2026</span>
+          </div>
         </div>
-
-        <!-- Event 2: Purpose & Destiny Conference -->
-        <div class="card event-card animate-on-scroll">
-          <img
-            src="images/events/purpose-conference.jpg"
-            alt="Purpose & Destiny Conference - Conference setting with speaker"
-            class="event-image"
-            onerror="this.src='https://via.placeholder.com/400x250/6B46C1/FFFFFF?text=Purpose+Conference'">
-
-          <span class="event-date">
-            <i class="far fa-calendar-alt"></i> April 20-21, 2024
-          </span>
-
-          <h3 class="card-title">Purpose & Destiny Conference</h3>
-
-          <p class="event-location">
-            <i class="fas fa-map-marker-alt"></i> Kingdom Convention Center
+ 
+        <!-- Details side -->
+        <div class="upcoming-feature-body">
+          <div class="upcoming-label">
+            <i class="fas fa-star"></i> Featured Event
+          </div>
+ 
+          <h3>The Kingdom Midwives Annual Summit 2026</h3>
+ 
+          <div class="upcoming-meta">
+            <div class="upcoming-meta-item">
+              <div class="meta-icon"><i class="far fa-calendar-alt"></i></div>
+              <div>
+                <strong>Date</strong>
+                Friday, 4 July 2026
+              </div>
+            </div>
+            <div class="upcoming-meta-item">
+              <div class="meta-icon"><i class="fas fa-map-marker-alt"></i></div>
+              <div>
+                <strong>Venue</strong>
+                Soweto Theatre, Soweto
+              </div>
+            </div>
+            <div class="upcoming-meta-item">
+              <div class="meta-icon"><i class="fas fa-clock"></i></div>
+              <div>
+                <strong>Time</strong>
+                To be announced
+              </div>
+            </div>
+          </div>
+ 
+          <p style="color: hsl(var(--muted-foreground)); margin-bottom: 28px; line-height: 1.7;">
+            Join us for a powerful annual gathering of Kingdom women coming together in worship,
+            intercession, and transformational ministry. An unforgettable experience of sisterhood,
+            purpose, and divine encounter at the iconic Soweto Theatre.
           </p>
-
-          <p class="event-description">
-            Two-day conference featuring renowned speakers on discovering your God-given purpose.
-            Engage in transformational workshops, prophetic ministry, and life-changing teachings
-            that will propel you into your destiny.
-          </p>
-
-          <a href="contact.html" class="btn btn-primary">Register Now</a>
-        </div>
-
-        <!-- Event 3: Community Outreach Day -->
-        <div class="card event-card animate-on-scroll">
-          <img
-            src="images/events/community-outreach.jpg"
-            alt="Community Outreach Day - Women serving community"
-            class="event-image"
-            onerror="this.src='https://via.placeholder.com/400x250/6B46C1/FFFFFF?text=Community+Outreach'">
-
-          <span class="event-date">
-            <i class="far fa-calendar-alt"></i> May 10, 2024
-          </span>
-
-          <h3 class="card-title">Community Outreach Day</h3>
-
-          <p class="event-location">
-            <i class="fas fa-map-marker-alt"></i> Soweto Community Hall
-          </p>
-
-          <p class="event-description">
-            Reach out to marginalized women with love, hope, and practical support. Join us as we serve
-            our community with food distribution, clothing, prayer ministry, and encouragement. Be the
-            hands and feet of Jesus.
-          </p>
-
-          <a href="contact.html" class="btn btn-primary">Join Us</a>
-        </div>
-
-        <!-- Event 4: Kingdom Retreat 2024 -->
-        <div class="card event-card animate-on-scroll">
-          <img
-            src="images/events/kingdom-retreat.jpg"
-            alt="Kingdom Retreat 2024 - Peaceful retreat setting"
-            class="event-image"
-            onerror="this.src='https://via.placeholder.com/400x250/6B46C1/FFFFFF?text=Kingdom+Retreat'">
-
-          <span class="event-date">
-            <i class="far fa-calendar-alt"></i> June 14-16, 2024
-          </span>
-
-          <h3 class="card-title">Kingdom Retreat 2024</h3>
-
-          <p class="event-location">
-            <i class="fas fa-map-marker-alt"></i> Mountain View Retreat Center
-          </p>
-
-          <p class="event-description">
-            Escape the busyness of life for a transformative weekend retreat. Enjoy worship, teaching,
-            ministry, and intimate fellowship with like-minded women. Disconnect to reconnect with
-            God and discover renewed vision for your life.
-          </p>
-
-          <a href="contact.html" class="btn btn-primary">Reserve Your Spot</a>
+ 
+          <div style="display:flex; gap:12px; flex-wrap:wrap;">
+            <a href="contact.html" class="btn btn-primary">Register Now</a>
+            <a href="https://wa.me/27835999626?text=Hello!%20I%20would%20like%20to%20register%20for%20the%20Annual%20Summit%202026."
+               class="btn btn-outline" target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-whatsapp"></i> Enquire
+            </a>
+          </div>
         </div>
       </div>
     </div>
   </section>
-
-  <!-- Past Events -->
+ 
+  <!-- ══ PAST EVENTS ══ -->
   <section class="section" style="background: hsl(var(--muted));">
     <div class="container">
       <div class="section-header">
         <h2 class="section-title">Past Events</h2>
-        <p class="section-subtitle">Celebrating the powerful moments God has given us</p>
+        <p class="section-subtitle">Celebrating the powerful moments God has given us — click any card to view photos</p>
       </div>
-
+ 
       <div class="grid grid-2">
-        <!-- Past Event 1: Vision & Prayer Night 2023 -->
-        <div class="card event-card">
-          <img
-            src="images/events/vision-prayer-night.jpg"
-            alt="Vision & Prayer Night 2023 - Evening prayer gathering"
-            class="event-image"
-            onerror="this.src='https://via.placeholder.com/400x250/6B46C1/FFFFFF?text=Vision+Prayer+Night'">
-
+ 
+        <!-- Summit 2022 -->
+        <div class="card event-card-past animate-on-scroll">
+          <div class="event-image-wrap" onclick="openGallery('summit2022')">
+            <img src="images/events/vision-prayer-night.jpg"
+                 alt="The Kingdom Midwives Summit 2022"
+                 onerror="this.src='https://via.placeholder.com/400x250/1a0030/FFFFFF?text=Summit+2022'">
+            <div class="event-image-overlay">
+              <span><i class="fas fa-images"></i> View Photos</span>
+            </div>
+          </div>
           <span class="event-date" style="background: hsl(var(--muted-foreground));">
-            <i class="far fa-calendar-alt"></i> November 2023
+            <i class="far fa-calendar-alt"></i> November 2022
           </span>
-
-          <h3 class="card-title">Vision & Prayer Night 2023</h3>
-
-          <p class="event-location">
-            <i class="fas fa-map-marker-alt"></i> City Life Church, Johannesburg
-          </p>
-
+          <h3 class="card-title">The Kingdom Midwives Summit 2022</h3>
+          <p class="event-location"><i class="fas fa-map-marker-alt"></i> Soweto</p>
           <p class="event-description">
             Over 200 women gathered for powerful worship and vision casting for the new year.
             An unforgettable evening of prophetic ministry, strategic prayer, and divine encounters
-            that set the trajectory for 2024.
+            that set the trajectory for 2023.
           </p>
+          <button class="gallery-trigger" onclick="openGallery('summit2022')">
+            <i class="fas fa-images"></i> View Event Photos
+          </button>
         </div>
-
-        <!-- Past Event 2: Leadership Workshop Series -->
-        <div class="card event-card">
-          <img
-            src="images/events/leadership-workshop.jpg"
-            alt="Leadership Workshop Series - Workshop/training session"
-            class="event-image"
-            onerror="this.src='https://via.placeholder.com/400x250/6B46C1/FFFFFF?text=Leadership+Workshop'">
-
+ 
+        <!-- Prayer Night 2022 -->
+        <div class="card event-card-past animate-on-scroll">
+          <div class="event-image-wrap" onclick="openGallery('prayernight2022')">
+            <img src="images/events/night-king.jpeg"
+                 alt="My Night With The King Prayer Night"
+                 onerror="this.src='https://via.placeholder.com/400x250/1a0030/FFFFFF?text=Prayer+Night'">
+            <div class="event-image-overlay">
+              <span><i class="fas fa-images"></i> View Photos</span>
+            </div>
+          </div>
           <span class="event-date" style="background: hsl(var(--muted-foreground));">
-            <i class="far fa-calendar-alt"></i> September 2023
+            <i class="far fa-calendar-alt"></i> September 2022
           </span>
-
-          <h3 class="card-title">Leadership Workshop Series</h3>
-
-          <p class="event-location">
-            <i class="fas fa-map-marker-alt"></i> Kingdom Training Center
-          </p>
-
+          <h3 class="card-title">My Night With The King Prayer Night</h3>
+          <p class="event-location"><i class="fas fa-map-marker-alt"></i> Soweto</p>
           <p class="event-description">
-            Six-week intensive leadership development program covering spiritual authority, team building,
-            strategic planning, and effective communication. Participants received mentorship and practical
-            tools for leadership excellence.
+            An intimate prayer night where women encountered the presence of God in a deep and
+            personal way. Powerful intercession, worship, and prophetic ministry marked this
+            unforgettable evening.
           </p>
+          <button class="gallery-trigger" onclick="openGallery('prayernight2022')">
+            <i class="fas fa-images"></i> View Event Photos
+          </button>
         </div>
-
-        <!-- Past Event 3: Full Circle Healing Session -->
-        <div class="card event-card">
-          <img
-            src="images/events/healing-session.jpg"
-            alt="Full Circle Healing Session - Intimate prayer circle"
-            class="event-image"
-            onerror="this.src='https://via.placeholder.com/400x250/6B46C1/FFFFFF?text=Healing+Session'">
-
+ 
+        <!-- Healing Session 2023 -->
+        <div class="card event-card-past animate-on-scroll">
+          <div class="event-image-wrap" onclick="openGallery('healing2023')">
+            <img src="images\events\northwest16.jpeg"
+                 alt="Full Circle Healing Session"
+                 onerror="this.src='https://via.placeholder.com/400x250/1a0030/FFFFFF?text=Healing+Session'">
+            <div class="event-image-overlay">
+              <span><i class="fas fa-images"></i> View Photos</span>
+            </div>
+          </div>
           <span class="event-date" style="background: hsl(var(--muted-foreground));">
             <i class="far fa-calendar-alt"></i> August 2023
           </span>
-
-          <h3 class="card-title">Full Circle Healing Session</h3>
-
-          <p class="event-location">
-            <i class="fas fa-map-marker-alt"></i> Private Venue
-          </p>
-
+          <h3 class="card-title">The Kingdom Midwives In Northwest</h3>
+          <p class="event-location"><i class="fas fa-map-marker-alt"></i> Klerksdorp</p>
           <p class="event-description">
             Intimate group therapy and healing session where women found freedom from trauma, pain,
-            and past hurts. A safe space for sharing, healing prayer, and restoration led by professional
-            Christian counselors.
+            and past hurts. A safe space for sharing, healing prayer, and restoration.
           </p>
+          <button class="gallery-trigger" onclick="openGallery('healing2023')">
+            <i class="fas fa-images"></i> View Event Photos
+          </button>
         </div>
-
-        <!-- Past Event 4: Women's Empowerment Brunch -->
-        <div class="card event-card">
-          <img
-            src="images/events/empowerment-brunch.jpg"
-            alt="Women's Empowerment Brunch - Elegant brunch setting"
-            class="event-image"
-            onerror="this.src='https://via.placeholder.com/400x250/6B46C1/FFFFFF?text=Empowerment+Brunch'">
-
+ 
+        <!-- Empowerment Brunch 2023 -->
+        <div class="card event-card-past animate-on-scroll">
+          <div class="event-image-wrap" onclick="openGallery('brunch2023')">
+            <img src="images/events/empowerment-brunch.jpg"
+                 alt="Women's Empowerment Brunch"
+                 onerror="this.src='https://via.placeholder.com/400x250/1a0030/FFFFFF?text=Empowerment+Brunch'">
+            <div class="event-image-overlay">
+              <span><i class="fas fa-images"></i> View Photos</span>
+            </div>
+          </div>
           <span class="event-date" style="background: hsl(var(--muted-foreground));">
             <i class="far fa-calendar-alt"></i> July 2023
           </span>
-
           <h3 class="card-title">Women's Empowerment Brunch</h3>
-
-          <p class="event-location">
-            <i class="fas fa-map-marker-alt"></i> Garden Terrace Hotel
-          </p>
-
+          <p class="event-location"><i class="fas fa-map-marker-alt"></i> Garden Terrace Hotel</p>
           <p class="event-description">
             An elegant gathering celebrating women's achievements and potential. Featured keynote speakers
             from business, ministry, and community leadership. Women were inspired, networked, and formed
             powerful connections.
           </p>
+          <button class="gallery-trigger" onclick="openGallery('brunch2023')">
+            <i class="fas fa-images"></i> View Event Photos
+          </button>
         </div>
+ 
       </div>
     </div>
   </section>
-
+ 
   <!-- Event Types -->
   <section class="section">
     <div class="container">
       <div class="section-header">
         <h2 class="section-title">Types of Events We Host</h2>
       </div>
-
       <div class="grid grid-3">
         <div class="card text-center">
-          <i class="fas fa-hands-praying" style="font-size: 48px; color: hsl(var(--secondary)); margin-bottom: 20px;"></i>
+          <i class="fas fa-hands-praying" style="font-size:48px;color:hsl(var(--secondary));margin-bottom:20px;"></i>
           <h4>Prayer Gatherings</h4>
           <p>Corporate prayer meetings, intercession nights, and prayer summits for spiritual breakthrough</p>
         </div>
-
         <div class="card text-center">
-          <i class="fas fa-chalkboard-teacher" style="font-size: 48px; color: hsl(var(--secondary)); margin-bottom: 20px;"></i>
+          <i class="fas fa-chalkboard-teacher" style="font-size:48px;color:hsl(var(--secondary));margin-bottom:20px;"></i>
           <h4>Conferences & Workshops</h4>
           <p>Transformational teachings, leadership training, and skill development programs</p>
         </div>
-
         <div class="card text-center">
-          <i class="fas fa-mountain" style="font-size: 48px; color: hsl(var(--secondary)); margin-bottom: 20px;"></i>
+          <i class="fas fa-mountain" style="font-size:48px;color:hsl(var(--secondary));margin-bottom:20px;"></i>
           <h4>Retreats</h4>
           <p>Weekend getaways for rest, reflection, spiritual renewal, and deep connection</p>
         </div>
-
         <div class="card text-center">
-          <i class="fas fa-hands-helping" style="font-size: 48px; color: hsl(var(--secondary)); margin-bottom: 20px;"></i>
+          <i class="fas fa-hands-helping" style="font-size:48px;color:hsl(var(--secondary));margin-bottom:20px;"></i>
           <h4>Community Outreach</h4>
           <p>Serving the marginalized with practical help, prayer, and compassionate care</p>
         </div>
-
         <div class="card text-center">
-          <i class="fas fa-heart" style="font-size: 48px; color: hsl(var(--secondary)); margin-bottom: 20px;"></i>
+          <i class="fas fa-heart" style="font-size:48px;color:hsl(var(--secondary));margin-bottom:20px;"></i>
           <h4>Healing Sessions</h4>
           <p>Intimate group therapy, inner healing, and emotional restoration in safe spaces</p>
         </div>
-
         <div class="card text-center">
-          <i class="fas fa-users" style="font-size: 48px; color: hsl(var(--secondary)); margin-bottom: 20px;"></i>
+          <i class="fas fa-users" style="font-size:48px;color:hsl(var(--secondary));margin-bottom:20px;"></i>
           <h4>Networking Events</h4>
           <p>Brunches, high teas, and gatherings for building relationships and partnerships</p>
         </div>
       </div>
     </div>
   </section>
-
-  <!-- Call to Action -->
+ 
+  <!-- CTA -->
   <section class="cta-section">
     <div class="container">
       <h2>Stay Connected</h2>
-      <p class="cta-text">
-        Don't miss out on our upcoming events! Contact us to receive event updates and invitations.
-      </p>
+      <p class="cta-text">Don't miss out on our upcoming events! Contact us to receive event updates and invitations.</p>
       <a href="contact.html" class="btn btn-primary">Get Event Updates</a>
     </div>
   </section>
-
+ 
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
       <div class="footer-content">
-        <!-- Column 1: About -->
         <div class="footer-section">
           <h3>About Kingdom Midwives</h3>
-          <p>
-            A faith-based charity organization empowering women to achieve their
-            God-given potential through biblical principles, community support, and transformational programs.
-          </p>
+          <p>A faith-based charity organization empowering women to achieve their God-given potential through biblical principles, community support, and transformational programs.</p>
         </div>
-
-        <!-- Column 2: Quick Links -->
         <div class="footer-section">
           <h3>Quick Links</h3>
           <ul class="footer-links">
@@ -370,54 +693,219 @@
             <li><a href="contact.html">Contact</a></li>
           </ul>
         </div>
-
-        <!-- Column 3: Connect -->
         <div class="footer-section">
           <h3>Connect With Us</h3>
-          <p>
-            <i class="fas fa-envelope"></i> info@kingdommidwives.org<br>
-            <i class="fas fa-phone"></i> 083 5999 626
-          </p>
+          <p><i class="fas fa-envelope"></i> info@kingdommidwives.org<br>
+             <i class="fas fa-phone"></i> 083 5999 626</p>
           <div class="social-links">
-            <a href="#" class="social-link" aria-label="Facebook">
-              <i class="fab fa-facebook-f"></i>
-            </a>
-            <a href="#" class="social-link" aria-label="Instagram">
-              <i class="fab fa-instagram"></i>
-            </a>
-            <a href="https://wa.me/27835999626" class="social-link" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer" style="background: #25D366;">
-              <i class="fab fa-whatsapp"></i>
-            </a>
-            <a href="mailto:info@kingdommidwives.org" class="social-link" aria-label="Email">
-              <i class="fas fa-envelope"></i>
-            </a>
-            <a href="tel:+27835999626" class="social-link" aria-label="Phone">
-              <i class="fas fa-phone"></i>
-            </a>
+            <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://wa.me/27835999626" class="social-link" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer" style="background:#25D366;"><i class="fab fa-whatsapp"></i></a>
+            <a href="mailto:info@kingdommidwives.org" class="social-link" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            <a href="tel:+27835999626" class="social-link" aria-label="Phone"><i class="fas fa-phone"></i></a>
           </div>
         </div>
       </div>
-
-      <!-- Copyright Bar -->
       <div class="footer-bottom">
-        <p>&copy; 2024 Kingdom Midwives. All rights reserved. Registered Charity Organization.</p>
-        <p style="margin-top: 8px; font-size: 0.875rem;">Website by <a href="https://mmdevs.co.za" target="_blank" rel="noopener noreferrer" style="color: hsl(var(--secondary)); text-decoration: none;">MM Devs</a></p>
+        <p>&copy; 2025 The Kingdom Midwives. All rights reserved. Registered Charity Organization.</p>
+        <p style="margin-top:8px;font-size:0.875rem;">Website by <a href="https://mmdevs.co.za" target="_blank" rel="noopener noreferrer" style="color:hsl(var(--secondary));text-decoration:none;">MM Devs</a></p>
       </div>
     </div>
   </footer>
-
-  <!-- WhatsApp Float Button -->
+ 
+  <!-- WhatsApp Float -->
   <a href="https://wa.me/27835999626?text=Hello%20The%20Kingdom%20Midwives!%20I%27d%20like%20to%20learn%20about%20your%20upcoming%20events."
-     class="whatsapp-float"
-     target="_blank"
-     rel="noopener noreferrer"
-     aria-label="Chat with us on WhatsApp">
+     class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat with us on WhatsApp">
     <span class="whatsapp-tooltip">Chat with us!</span>
     <i class="fab fa-whatsapp"></i>
   </a>
-
-  <!-- JavaScript -->
+ 
+  <!-- ══ LIGHTBOX ══ -->
+  <div class="lightbox-overlay" id="lightboxOverlay" role="dialog" aria-modal="true" aria-label="Event photo gallery">
+    <div class="lightbox-header">
+      <span class="lightbox-title" id="lightboxTitle"></span>
+      <div style="display:flex;align-items:center;gap:16px;">
+        <span class="lightbox-counter" id="lightboxCounter"></span>
+        <button class="lightbox-close" id="lightboxClose" aria-label="Close gallery">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+ 
+    <div class="lightbox-stage">
+      <button class="lightbox-nav prev" id="lightboxPrev" aria-label="Previous photo">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <div class="lightbox-img-wrap">
+        <img id="lightboxImg" src="" alt="Event photo">
+      </div>
+      <button class="lightbox-nav next" id="lightboxNext" aria-label="Next photo">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+ 
+    <div class="lightbox-thumbs" id="lightboxThumbs"></div>
+  </div>
+ 
   <script src="js/main.js"></script>
-
+  <script>
+    /* ═══════════════════════════════════════════════════════════
+       GALLERY DATA
+       Add your real image paths inside each event's `photos` array.
+       You can add as many photos as you like per event.
+       Folder suggestion: images/events/summit2022/photo-1.jpg etc.
+    ═══════════════════════════════════════════════════════════ */
+    const galleries = {
+      summit2022: {
+        title: 'The Kingdom Midwives Summit 2022',
+        photos: [
+          { src: 'images/events/vision-payer-night2.jpeg', alt: 'Summit 2022 - Opening worship' },
+          { src: 'images/events/vision-prayer-night3.jpeg', alt: 'Summit 2022 - Women in prayer' },
+          { src: 'images/events/vision-prayer-night4.jpeg', alt: 'Summit 2022 - Keynote speaker' },
+          { src: 'images/events/vision-prayer-night5.jpeg', alt: 'Summit 2022 - Group photograph' },
+          { src: 'images/events/vision-prayer-night6.jpeg', alt: 'Summit 2022 - Group photograph' },
+          { src: 'images/events/vision-prayer-night7.jpeg', alt: 'Summit 2022 - Group photograph' },
+          { src: 'images/events/vision-prayer-night8.jpeg', alt: 'Summit 2022 - Group photograph' },
+          { src: 'images/events/vision-prayer-night9.jpeg', alt: 'Summit 2022 - Group photograph' },
+          { src: 'images/events/vision-prayer-night10.jpeg', alt: 'Summit 2022 - Group photograph' },
+          { src: 'images/events/vision-prayer-night11.jpeg', alt: 'Summit 2022 - Group photograph' },
+          { src: 'images/events/vision-prayer-night12.jpeg', alt: 'Summit 2022 - Group photograph' },
+          { src: 'images/events/vision-prayer-night13.jpeg', alt: 'Summit 2022 - Group photograph' },
+        ]
+      },
+      prayernight2022: {
+        title: 'My Night With The King Prayer Night',
+        photos: [
+          { src: 'images/events/night-king2.jpeg', alt: 'Prayer Night - Intercession' },
+          { src: 'images/events/night-king2.jpeg', alt: 'Prayer Night - Worship' },
+          { src: 'images/events/night-king3.jpeg', alt: 'Prayer Night - Ministry time' },
+          { src: 'images/events/night-king4.jpeg', alt: 'Prayer Night - Ministry time' },
+          { src: 'images/events/night-king5.jpeg', alt: 'Prayer Night - Ministry time' },
+          { src: 'images/events/night-king6.jpeg', alt: 'Prayer Night - Ministry time' },
+          { src: 'images/events/night-king7.jpeg', alt: 'Prayer Night - Ministry time' },
+          { src: 'images/events/night-king8.jpeg', alt: 'Prayer Night - Ministry time' },
+          { src: 'images/events/night-king9.jpeg', alt: 'Prayer Night - Ministry time' },
+        ]
+      },
+      healing2023: {
+        title: 'Full Circle Healing Session 2023',
+        photos: [
+          { src: 'images/events/northwest.jpeg', alt: 'Healing Session - Circle of prayer' },
+          { src: 'images/events/northwest1.jpeg', alt: 'Healing Session - Ministry' },
+          { src: 'images/events/northwest2.jpeg', alt: 'Healing Session - Ministry' },
+          { src: 'images/events/northwest3.jpeg', alt: 'Healing Session - Ministry' },
+          { src: 'images/events/northwest4.jpeg', alt: 'Healing Session - Ministry' },
+          { src: 'images/events/northwest5.jpeg', alt: 'Healing Session - Ministry' },
+          { src: 'images/events/northwest6.jpeg', alt: 'Healing Session - Ministry' },
+          { src: 'images/events/northwest7.jpeg', alt: 'Healing Session - Ministry' },
+          { src: 'images/events/northwest8.jpeg', alt: 'Healing Session - Ministry' },
+          { src: 'images/events/northwest9.jpeg', alt: 'Healing Session - Ministry' },
+          { src: 'images/events/northwest10.jpeg', alt: 'Healing Session - Ministry' },
+          { src: 'images/events/northwest11.jpeg', alt: 'Healing Session - Ministry' },
+          { src: 'images/events/northwest12.jpeg', alt: 'Healing Session - Ministry' },
+          { src: 'images/events/northwest13.jpeg', alt: 'Healing Session - Ministry' },
+          { src: 'images/events/northwest14.jpeg', alt: 'Healing Session - Ministry' },
+          { src: 'images/events/northwest15.jpeg', alt: 'Healing Session - Ministry' },
+          { src: 'images/events/northwest16.jpeg', alt: 'Healing Session - Ministry' },
+          { src: 'images/events/northwest17.jpeg', alt: 'Healing Session - Ministry' },
+          { src: 'images/events/northwest18.jpeg', alt: 'Healing Session - Ministry' },
+          { src: 'images/events/northwest19.jpeg', alt: 'Healing Session - Ministry' },
+        ]
+      },
+      brunch2023: {
+        title: "Women's Empowerment Brunch 2023",
+        photos: [
+          { src: 'images/events/brunch2023/photo-1.jpg', alt: 'Empowerment Brunch - Setting' },
+          { src: 'images/events/brunch2023/photo-2.jpg', alt: 'Empowerment Brunch - Speaker' },
+          { src: 'images/events/brunch2023/photo-3.jpg', alt: 'Empowerment Brunch - Networking' },
+          { src: 'images/events/brunch2023/photo-4.jpg', alt: 'Empowerment Brunch - Group photo' },
+        ]
+      }
+    };
+ 
+    /* ── Lightbox state ── */
+    let currentGallery = [];
+    let currentIndex   = 0;
+ 
+    const overlay  = document.getElementById('lightboxOverlay');
+    const img      = document.getElementById('lightboxImg');
+    const titleEl  = document.getElementById('lightboxTitle');
+    const counter  = document.getElementById('lightboxCounter');
+    const thumbsEl = document.getElementById('lightboxThumbs');
+ 
+    function openGallery(key) {
+      const data = galleries[key];
+      if (!data) return;
+      currentGallery    = data.photos;
+      currentIndex      = 0;
+      titleEl.textContent = data.title;
+ 
+      // Build thumbnails
+      thumbsEl.innerHTML = '';
+      currentGallery.forEach((photo, i) => {
+        const th = document.createElement('img');
+        th.src       = photo.src;
+        th.alt       = photo.alt;
+        th.className = 'lightbox-thumb' + (i === 0 ? ' active' : '');
+        th.onerror   = function () {
+          const ph = document.createElement('div');
+          ph.className = 'lightbox-thumb-ph' + (i === 0 ? ' active' : '');
+          ph.innerHTML = '<i class="fas fa-image"></i>';
+          ph.onclick   = () => showPhoto(i);
+          this.replaceWith(ph);
+        };
+        th.onclick = () => showPhoto(i);
+        thumbsEl.appendChild(th);
+      });
+ 
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      showPhoto(0);
+    }
+ 
+    function showPhoto(index) {
+      img.classList.add('fading');
+      setTimeout(() => {
+        const photo = currentGallery[index];
+        img.src     = photo.src;
+        img.alt     = photo.alt;
+        img.onerror = () => {
+          img.src = 'https://via.placeholder.com/800x500/1a0030/FFFFFF?text=Photo+Coming+Soon';
+        };
+        counter.textContent = `${index + 1} / ${currentGallery.length}`;
+        img.classList.remove('fading');
+ 
+        // Sync thumbnails
+        thumbsEl.querySelectorAll('.lightbox-thumb, .lightbox-thumb-ph').forEach((el, i) => {
+          el.classList.toggle('active', i === index);
+        });
+      }, 220);
+      currentIndex = index;
+    }
+ 
+    function goTo(index) {
+      if (index < 0) index = currentGallery.length - 1;
+      if (index >= currentGallery.length) index = 0;
+      showPhoto(index);
+    }
+ 
+    function closeGallery() {
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+ 
+    document.getElementById('lightboxClose').addEventListener('click', closeGallery);
+    document.getElementById('lightboxPrev').addEventListener('click', () => goTo(currentIndex - 1));
+    document.getElementById('lightboxNext').addEventListener('click', () => goTo(currentIndex + 1));
+    overlay.addEventListener('click', e => { if (e.target === overlay) closeGallery(); });
+    document.addEventListener('keydown', e => {
+      if (!overlay.classList.contains('active')) return;
+      if (e.key === 'ArrowLeft')  goTo(currentIndex - 1);
+      if (e.key === 'ArrowRight') goTo(currentIndex + 1);
+      if (e.key === 'Escape')     closeGallery();
+    });
+  </script>
+ 
 </body>
 </html>
+ 
