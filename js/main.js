@@ -19,7 +19,7 @@ if (mobileMenuBtn && navMenu) {
 
     // Update aria-expanded for accessibility
     const isExpanded = navMenu.classList.contains('active');
-    mobileMenuBtn.setAttribute('aria-expanded', isExpanded);
+     mobileMenuBtn.setAttribute('aria-expanded', isExpanded);
 
     // Prevent body scroll when menu is open
     if (isExpanded) {

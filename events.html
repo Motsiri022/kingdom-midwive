@@ -224,6 +224,63 @@
       box-shadow: 0 6px 20px rgba(20, 0, 50, 0.3);
     }
  
+    /* ── No-photo placeholder on card ── */
+    .event-image-placeholder {
+      width: 100%;
+      height: 250px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, hsl(270 60% 18%), hsl(270 40% 28%));
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+    }
+ 
+    .event-image-placeholder:hover { opacity: 0.85; }
+ 
+    .event-image-placeholder i {
+      font-size: 48px;
+      color: rgba(255,255,255,0.35);
+    }
+ 
+    .event-image-placeholder span {
+      color: rgba(255,255,255,0.55);
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      letter-spacing: 0.04em;
+    }
+ 
+    /* ── CTA with background image ── */
+    .cta-section {
+      position: relative;
+      overflow: hidden;
+    }
+ 
+    .cta-bg-image {
+      position: absolute;
+      inset: 0;
+      background-image: url('images/events/northercape.jpeg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      filter: brightness(0.25) saturate(0.8);
+      z-index: 0;
+      transition: transform 0.6s ease;
+    }
+ 
+    .cta-section:hover .cta-bg-image {
+      transform: scale(1.03);
+    }
+ 
+    .cta-section .container {
+      position: relative;
+      z-index: 1;
+    }
+ 
     /* ── Lightbox ── */
     .lightbox-overlay {
       position: fixed;
@@ -390,6 +447,28 @@
       border-color: hsl(var(--secondary));
     }
  
+    /* ── No-photos lightbox message ── */
+    .lightbox-no-photos {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 60px 20px;
+      color: rgba(255,255,255,0.55);
+      text-align: center;
+    }
+ 
+    .lightbox-no-photos i {
+      font-size: 64px;
+      opacity: 0.3;
+    }
+ 
+    .lightbox-no-photos p {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+    }
+ 
     @media (max-width: 768px) {
       .upcoming-feature-card { grid-template-columns: 1fr; }
       .upcoming-feature-body {
@@ -454,7 +533,7 @@
         <!-- Image side -->
         <div class="upcoming-feature-image">
           <img
-            src="images/events/hero2-cta.jpeg"
+            src="images/events/2026-annual-midwive-summit .jpeg"
             alt="The Kingdom Midwives Annual Summit 2026"
             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
           <div class="upcoming-feature-image-placeholder" style="display:none;">
@@ -476,21 +555,21 @@
               <div class="meta-icon"><i class="far fa-calendar-alt"></i></div>
               <div>
                 <strong>Date</strong>
-                Friday, 4 July 2026
+                Saturday, 4 July 2026
               </div>
             </div>
             <div class="upcoming-meta-item">
               <div class="meta-icon"><i class="fas fa-map-marker-alt"></i></div>
               <div>
                 <strong>Venue</strong>
-                Soweto Theatre, Soweto
+                Soweto Theatre, Jabulani
               </div>
             </div>
             <div class="upcoming-meta-item">
               <div class="meta-icon"><i class="fas fa-clock"></i></div>
               <div>
                 <strong>Time</strong>
-                To be announced
+                10 am
               </div>
             </div>
           </div>
@@ -573,12 +652,12 @@
           </button>
         </div>
  
-        <!-- Healing Session 2023 -->
+        <!-- Northwest 2023 -->
         <div class="card event-card-past animate-on-scroll">
           <div class="event-image-wrap" onclick="openGallery('healing2023')">
-            <img src="images\events\northwest16.jpeg"
-                 alt="Full Circle Healing Session"
-                 onerror="this.src='https://via.placeholder.com/400x250/1a0030/FFFFFF?text=Healing+Session'">
+            <img src="images/events/northwest16.jpeg"
+                 alt="The Kingdom Midwives In Northwest"
+                 onerror="this.src='https://via.placeholder.com/400x250/1a0030/FFFFFF?text=Northwest+2023'">
             <div class="event-image-overlay">
               <span><i class="fas fa-images"></i> View Photos</span>
             </div>
@@ -597,12 +676,12 @@
           </button>
         </div>
  
-        <!-- Empowerment Brunch 2023 -->
+        <!-- Northern Cape 2023 — FIX: now uses its own key 'northercape2023' -->
         <div class="card event-card-past animate-on-scroll">
-          <div class="event-image-wrap" onclick="openGallery('brunch2023')">
-            <img src="images/events/empowerment-brunch.jpg"
-                 alt="Women's Empowerment Brunch"
-                 onerror="this.src='https://via.placeholder.com/400x250/1a0030/FFFFFF?text=Empowerment+Brunch'">
+          <div class="event-image-wrap" onclick="openGallery('northercape2023')">
+            <img src="images/events/northercape.jpeg"
+                 alt="The Kingdom Midwives In Northern Cape"
+                 onerror="this.src='https://via.placeholder.com/400x250/1a0030/FFFFFF?text=Northern+Cape+2023'">
             <div class="event-image-overlay">
               <span><i class="fas fa-images"></i> View Photos</span>
             </div>
@@ -610,14 +689,39 @@
           <span class="event-date" style="background: hsl(var(--muted-foreground));">
             <i class="far fa-calendar-alt"></i> July 2023
           </span>
-          <h3 class="card-title">Women's Empowerment Brunch</h3>
-          <p class="event-location"><i class="fas fa-map-marker-alt"></i> Garden Terrace Hotel</p>
+          <h3 class="card-title">The Kingdom Midwives In Northern Cape</h3>
+          <p class="event-location"><i class="fas fa-map-marker-alt"></i> Kimberly</p>
           <p class="event-description">
             An elegant gathering celebrating women's achievements and potential. Featured keynote speakers
             from business, ministry, and community leadership. Women were inspired, networked, and formed
             powerful connections.
           </p>
-          <button class="gallery-trigger" onclick="openGallery('brunch2023')">
+          <button class="gallery-trigger" onclick="openGallery('northercape2023')">
+            <i class="fas fa-images"></i> View Event Photos
+          </button>
+        </div>
+ 
+        <!-- May 2023 — own key 'may2023', photos array ready to fill -->
+        <div class="card event-card-past animate-on-scroll">
+          <div class="event-image-wrap" onclick="openGallery('may2023')">
+            <img src="images/events/may2023-1.jpeg"
+                 alt="The Kingdom Midwives May 2023"
+                 onerror="this.src='https://via.placeholder.com/400x250/1a0030/FFFFFF?text=May+2023'">
+            <div class="event-image-overlay">
+              <span><i class="fas fa-images"></i> View Photos</span>
+            </div>
+          </div>
+          <span class="event-date" style="background: hsl(var(--muted-foreground));">
+            <i class="far fa-calendar-alt"></i> May 2023
+          </span>
+          <h3 class="card-title">The Kingdom Midwives May 2023</h3>
+          <p class="event-location"><i class="fas fa-map-marker-alt"></i> Soweto</p>
+          <p class="event-description">
+            An elegant gathering celebrating women's achievements and potential. Featured keynote speakers
+            from business, ministry, and community leadership. Women were inspired, networked, and formed
+            powerful connections.
+          </p>
+          <button class="gallery-trigger" onclick="openGallery('may2023')">
             <i class="fas fa-images"></i> View Event Photos
           </button>
         </div>
@@ -667,8 +771,10 @@
     </div>
   </section>
  
-  <!-- CTA -->
+  <!-- CTA — background image added -->
   <section class="cta-section">
+    <!-- Background image layer -->
+    <div class="cta-bg-image" aria-hidden="true"></div>
     <div class="container">
       <h2>Stay Connected</h2>
       <p class="cta-text">Don't miss out on our upcoming events! Contact us to receive event updates and invitations.</p>
@@ -736,7 +842,7 @@
       <button class="lightbox-nav prev" id="lightboxPrev" aria-label="Previous photo">
         <i class="fas fa-chevron-left"></i>
       </button>
-      <div class="lightbox-img-wrap">
+      <div class="lightbox-img-wrap" id="lightboxImgWrap">
         <img id="lightboxImg" src="" alt="Event photo">
       </div>
       <button class="lightbox-nav next" id="lightboxNext" aria-label="Next photo">
@@ -751,15 +857,18 @@
   <script>
     /* ═══════════════════════════════════════════════════════════
        GALLERY DATA
-       Add your real image paths inside each event's `photos` array.
-       You can add as many photos as you like per event.
-       Folder suggestion: images/events/summit2022/photo-1.jpg etc.
+       ─────────────────────────────────────────────────────────
+       Each event now has its OWN unique key — no duplicates.
+       To add photos to the May 2023 event, add objects to the
+       may2023 → photos array following the same pattern:
+         { src: 'images/events/YOUR-FILE.jpeg', alt: 'Caption' }
     ═══════════════════════════════════════════════════════════ */
     const galleries = {
+ 
       summit2022: {
         title: 'The Kingdom Midwives Summit 2022',
         photos: [
-          { src: 'images/events/vision-payer-night2.jpeg', alt: 'Summit 2022 - Opening worship' },
+          { src: 'images/events/vision-payer-night2.jpeg',  alt: 'Summit 2022 - Opening worship' },
           { src: 'images/events/vision-prayer-night3.jpeg', alt: 'Summit 2022 - Women in prayer' },
           { src: 'images/events/vision-prayer-night4.jpeg', alt: 'Summit 2022 - Keynote speaker' },
           { src: 'images/events/vision-prayer-night5.jpeg', alt: 'Summit 2022 - Group photograph' },
@@ -773,12 +882,12 @@
           { src: 'images/events/vision-prayer-night13.jpeg', alt: 'Summit 2022 - Group photograph' },
         ]
       },
+ 
       prayernight2022: {
         title: 'My Night With The King Prayer Night',
         photos: [
           { src: 'images/events/night-king2.jpeg', alt: 'Prayer Night - Intercession' },
-          { src: 'images/events/night-king2.jpeg', alt: 'Prayer Night - Worship' },
-          { src: 'images/events/night-king3.jpeg', alt: 'Prayer Night - Ministry time' },
+          { src: 'images/events/night-king3.jpeg', alt: 'Prayer Night - Worship' },
           { src: 'images/events/night-king4.jpeg', alt: 'Prayer Night - Ministry time' },
           { src: 'images/events/night-king5.jpeg', alt: 'Prayer Night - Ministry time' },
           { src: 'images/events/night-king6.jpeg', alt: 'Prayer Night - Ministry time' },
@@ -787,60 +896,127 @@
           { src: 'images/events/night-king9.jpeg', alt: 'Prayer Night - Ministry time' },
         ]
       },
+ 
       healing2023: {
-        title: 'Full Circle Healing Session 2023',
+        title: 'The Kingdom Midwives In Northwest',
         photos: [
-          { src: 'images/events/northwest.jpeg', alt: 'Healing Session - Circle of prayer' },
-          { src: 'images/events/northwest1.jpeg', alt: 'Healing Session - Ministry' },
-          { src: 'images/events/northwest2.jpeg', alt: 'Healing Session - Ministry' },
-          { src: 'images/events/northwest3.jpeg', alt: 'Healing Session - Ministry' },
-          { src: 'images/events/northwest4.jpeg', alt: 'Healing Session - Ministry' },
-          { src: 'images/events/northwest5.jpeg', alt: 'Healing Session - Ministry' },
-          { src: 'images/events/northwest6.jpeg', alt: 'Healing Session - Ministry' },
-          { src: 'images/events/northwest7.jpeg', alt: 'Healing Session - Ministry' },
-          { src: 'images/events/northwest8.jpeg', alt: 'Healing Session - Ministry' },
-          { src: 'images/events/northwest9.jpeg', alt: 'Healing Session - Ministry' },
-          { src: 'images/events/northwest10.jpeg', alt: 'Healing Session - Ministry' },
-          { src: 'images/events/northwest11.jpeg', alt: 'Healing Session - Ministry' },
-          { src: 'images/events/northwest12.jpeg', alt: 'Healing Session - Ministry' },
-          { src: 'images/events/northwest13.jpeg', alt: 'Healing Session - Ministry' },
-          { src: 'images/events/northwest14.jpeg', alt: 'Healing Session - Ministry' },
-          { src: 'images/events/northwest15.jpeg', alt: 'Healing Session - Ministry' },
-          { src: 'images/events/northwest16.jpeg', alt: 'Healing Session - Ministry' },
-          { src: 'images/events/northwest17.jpeg', alt: 'Healing Session - Ministry' },
-          { src: 'images/events/northwest18.jpeg', alt: 'Healing Session - Ministry' },
-          { src: 'images/events/northwest19.jpeg', alt: 'Healing Session - Ministry' },
+          { src: 'images/events/northwest.jpeg',   alt: 'Northwest - Opening' },
+          { src: 'images/events/northwest1.jpeg',  alt: 'Northwest - Session' },
+          { src: 'images/events/northwest2.jpeg',  alt: 'Northwest - Session' },
+          { src: 'images/events/northwest3.jpeg',  alt: 'Northwest - Session' },
+          { src: 'images/events/northwest4.jpeg',  alt: 'Northwest - Session' },
+          { src: 'images/events/northwest5.jpeg',  alt: 'Northwest - Session' },
+          { src: 'images/events/northwest6.jpeg',  alt: 'Northwest - Session' },
+          { src: 'images/events/northwest7.jpeg',  alt: 'Northwest - Session' },
+          { src: 'images/events/northwest8.jpeg',  alt: 'Northwest - Session' },
+          { src: 'images/events/northwest9.jpeg',  alt: 'Northwest - Session' },
+          { src: 'images/events/northwest10.jpeg', alt: 'Northwest - Session' },
+          { src: 'images/events/northwest11.jpeg', alt: 'Northwest - Session' },
+          { src: 'images/events/northwest12.jpeg', alt: 'Northwest - Session' },
+          { src: 'images/events/northwest13.jpeg', alt: 'Northwest - Session' },
+          { src: 'images/events/northwest14.jpeg', alt: 'Northwest - Session' },
+          { src: 'images/events/northwest15.jpeg', alt: 'Northwest - Session' },
+          { src: 'images/events/northwest16.jpeg', alt: 'Northwest - Session' },
+          { src: 'images/events/northwest17.jpeg', alt: 'Northwest - Session' },
+          { src: 'images/events/northwest18.jpeg', alt: 'Northwest - Session' },
+          { src: 'images/events/northwest19.jpeg', alt: 'Northwest - Session' },
         ]
       },
-      brunch2023: {
-        title: "Women's Empowerment Brunch 2023",
+ 
+      /* ── Northern Cape gets its own key — no longer conflicts ── */
+      northercape2023: {
+        title: 'The Kingdom Midwives In Northern Cape',
         photos: [
-          { src: 'images/events/brunch2023/photo-1.jpg', alt: 'Empowerment Brunch - Setting' },
-          { src: 'images/events/brunch2023/photo-2.jpg', alt: 'Empowerment Brunch - Speaker' },
-          { src: 'images/events/brunch2023/photo-3.jpg', alt: 'Empowerment Brunch - Networking' },
-          { src: 'images/events/brunch2023/photo-4.jpg', alt: 'Empowerment Brunch - Group photo' },
+          { src: 'images/events/northercape1.jpeg',  alt: 'Northern Cape - Setting' },
+          { src: 'images/events/northercape2.jpeg',  alt: 'Northern Cape - Speaker' },
+          { src: 'images/events/northercape3.jpeg',  alt: 'Northern Cape - Networking' },
+          { src: 'images/events/northercape4.jpeg',  alt: 'Northern Cape - Group photo' },
+          { src: 'images/events/northercape5.jpeg',  alt: 'Northern Cape - Group photo' },
+          { src: 'images/events/northercape6.jpeg',  alt: 'Northern Cape - Group photo' },
+          { src: 'images/events/northercape7.jpeg',  alt: 'Northern Cape - Group photo' },
+          { src: 'images/events/northercape8.jpeg',  alt: 'Northern Cape - Group photo' },
+          { src: 'images/events/northercape9.jpeg',  alt: 'Northern Cape - Group photo' },
+          { src: 'images/events/northercape10.jpeg', alt: 'Northern Cape - Group photo' },
+          { src: 'images/events/northercape11.jpeg', alt: 'Northern Cape - Group photo' },
+          { src: 'images/events/northercape12.jpeg', alt: 'Northern Cape - Group photo' },
+          { src: 'images/events/northercape13.jpeg', alt: 'Northern Cape - Group photo' },
+          { src: 'images/events/northercape14.jpeg', alt: 'Northern Cape - Group photo' },
+        ]
+      },
+ 
+      /* ── May 2023 — add your photo file names below ── */
+      may2023: {
+        title: 'The Kingdom Midwives May 2023',
+        photos: [
+       
+             { src: 'images/events/may2023-1.jpeg', alt: 'May 2023 - Description' },
+             { src: 'images/events/may2023-2.jpeg', alt: 'May 2023 - Description' },
+             { src: 'images/events/may2023-3.jpeg', alt: 'May 2023 - Description' },
+             { src: 'images/events/may2023-4.jpeg', alt: 'May 2023 - Description' },
+             { src: 'images/events/may2023-5.jpeg', alt: 'May 2023 - Description' },
+             { src: 'images/events/may2023-6.jpeg', alt: 'May 2023 - Description' },
+             { src: 'images/events/may2023-7.jpeg', alt: 'May 2023 - Description' },
+                                                                    
         ]
       }
+ 
     };
  
     /* ── Lightbox state ── */
     let currentGallery = [];
     let currentIndex   = 0;
  
-    const overlay  = document.getElementById('lightboxOverlay');
-    const img      = document.getElementById('lightboxImg');
-    const titleEl  = document.getElementById('lightboxTitle');
-    const counter  = document.getElementById('lightboxCounter');
-    const thumbsEl = document.getElementById('lightboxThumbs');
+    const overlay    = document.getElementById('lightboxOverlay');
+    const img        = document.getElementById('lightboxImg');
+    const imgWrap    = document.getElementById('lightboxImgWrap');
+    const titleEl    = document.getElementById('lightboxTitle');
+    const counter    = document.getElementById('lightboxCounter');
+    const thumbsEl   = document.getElementById('lightboxThumbs');
+    const prevBtn    = document.getElementById('lightboxPrev');
+    const nextBtn    = document.getElementById('lightboxNext');
  
     function openGallery(key) {
       const data = galleries[key];
       if (!data) return;
-      currentGallery    = data.photos;
-      currentIndex      = 0;
+ 
+      currentGallery      = data.photos;
+      currentIndex        = 0;
       titleEl.textContent = data.title;
  
-      // Build thumbnails
+      /* ── No photos yet: show friendly message ── */
+      if (currentGallery.length === 0) {
+        img.style.display    = 'none';
+        prevBtn.style.display = 'none';
+        nextBtn.style.display = 'none';
+        thumbsEl.innerHTML   = '';
+        counter.textContent  = '';
+ 
+        let noPhotosEl = imgWrap.querySelector('.lightbox-no-photos');
+        if (!noPhotosEl) {
+          noPhotosEl = document.createElement('div');
+          noPhotosEl.className = 'lightbox-no-photos';
+          noPhotosEl.innerHTML = `
+            <i class="fas fa-camera"></i>
+            <p>Photos coming soon</p>
+          `;
+          imgWrap.appendChild(noPhotosEl);
+        }
+        noPhotosEl.style.display = 'flex';
+ 
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        return;
+      }
+ 
+      /* ── Has photos: restore normal view ── */
+      img.style.display    = '';
+      prevBtn.style.display = '';
+      nextBtn.style.display = '';
+ 
+      const noPhotosEl = imgWrap.querySelector('.lightbox-no-photos');
+      if (noPhotosEl) noPhotosEl.style.display = 'none';
+ 
+      /* Build thumbnails */
       thumbsEl.innerHTML = '';
       currentGallery.forEach((photo, i) => {
         const th = document.createElement('img');
@@ -866,19 +1042,22 @@
     function showPhoto(index) {
       img.classList.add('fading');
       setTimeout(() => {
-        const photo = currentGallery[index];
-        img.src     = photo.src;
-        img.alt     = photo.alt;
-        img.onerror = () => {
+        const photo     = currentGallery[index];
+        img.src         = photo.src;
+        img.alt         = photo.alt;
+        img.onerror     = () => {
           img.src = 'https://via.placeholder.com/800x500/1a0030/FFFFFF?text=Photo+Coming+Soon';
         };
         counter.textContent = `${index + 1} / ${currentGallery.length}`;
         img.classList.remove('fading');
  
-        // Sync thumbnails
         thumbsEl.querySelectorAll('.lightbox-thumb, .lightbox-thumb-ph').forEach((el, i) => {
           el.classList.toggle('active', i === index);
         });
+ 
+        /* Auto-scroll active thumb into view */
+        const activeTh = thumbsEl.querySelector('.active');
+        if (activeTh) activeTh.scrollIntoView({ inline: 'nearest', behavior: 'smooth' });
       }, 220);
       currentIndex = index;
     }
@@ -895,8 +1074,8 @@
     }
  
     document.getElementById('lightboxClose').addEventListener('click', closeGallery);
-    document.getElementById('lightboxPrev').addEventListener('click', () => goTo(currentIndex - 1));
-    document.getElementById('lightboxNext').addEventListener('click', () => goTo(currentIndex + 1));
+    prevBtn.addEventListener('click', () => goTo(currentIndex - 1));
+    nextBtn.addEventListener('click', () => goTo(currentIndex + 1));
     overlay.addEventListener('click', e => { if (e.target === overlay) closeGallery(); });
     document.addEventListener('keydown', e => {
       if (!overlay.classList.contains('active')) return;
@@ -908,4 +1087,3 @@
  
 </body>
 </html>
- 
